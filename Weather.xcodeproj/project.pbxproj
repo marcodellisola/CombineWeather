@@ -11,6 +11,10 @@
 		037F1EA929D1E84E00B2058C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F1EA829D1E84E00B2058C /* ContentView.swift */; };
 		037F1EAB29D1E84F00B2058C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 037F1EAA29D1E84F00B2058C /* Assets.xcassets */; };
 		037F1EAE29D1E84F00B2058C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 037F1EAD29D1E84F00B2058C /* Preview Assets.xcassets */; };
+		037F1EB729D1E85700B2058C /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F1EB529D1E85700B2058C /* WeatherModel.swift */; };
+		037F1EB829D1E85700B2058C /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F1EB629D1E85700B2058C /* WeatherManager.swift */; };
+		037F1EBB29D1EB3D00B2058C /* WeatherKitPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F1EBA29D1EB3D00B2058C /* WeatherKitPublisher.swift */; };
+		037F1EBD29D1ED1A00B2058C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F1EBC29D1ED1A00B2058C /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		037F1EA829D1E84E00B2058C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		037F1EAA29D1E84F00B2058C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		037F1EAD29D1E84F00B2058C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		037F1EB529D1E85700B2058C /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		037F1EB629D1E85700B2058C /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		037F1EBA29D1EB3D00B2058C /* WeatherKitPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherKitPublisher.swift; sourceTree = "<group>"; };
+		037F1EBC29D1ED1A00B2058C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,9 @@
 				037F1EA629D1E84E00B2058C /* WeatherApp.swift */,
 				037F1EA829D1E84E00B2058C /* ContentView.swift */,
 				037F1EAA29D1E84F00B2058C /* Assets.xcassets */,
+				037F1EBC29D1ED1A00B2058C /* LocationManager.swift */,
+				037F1EB929D1E90200B2058C /* WeatherKit */,
+				037F1EB429D1E85700B2058C /* WeatherAPI */,
 				037F1EAC29D1E84F00B2058C /* Preview Content */,
 			);
 			path = Weather;
@@ -65,6 +76,23 @@
 				037F1EAD29D1E84F00B2058C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		037F1EB429D1E85700B2058C /* WeatherAPI */ = {
+			isa = PBXGroup;
+			children = (
+				037F1EB529D1E85700B2058C /* WeatherModel.swift */,
+				037F1EB629D1E85700B2058C /* WeatherManager.swift */,
+			);
+			path = WeatherAPI;
+			sourceTree = "<group>";
+		};
+		037F1EB929D1E90200B2058C /* WeatherKit */ = {
+			isa = PBXGroup;
+			children = (
+				037F1EBA29D1EB3D00B2058C /* WeatherKitPublisher.swift */,
+			);
+			path = WeatherKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +166,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				037F1EA929D1E84E00B2058C /* ContentView.swift in Sources */,
+				037F1EB729D1E85700B2058C /* WeatherModel.swift in Sources */,
+				037F1EBD29D1ED1A00B2058C /* LocationManager.swift in Sources */,
+				037F1EBB29D1EB3D00B2058C /* WeatherKitPublisher.swift in Sources */,
+				037F1EB829D1E85700B2058C /* WeatherManager.swift in Sources */,
 				037F1EA729D1E84E00B2058C /* WeatherApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

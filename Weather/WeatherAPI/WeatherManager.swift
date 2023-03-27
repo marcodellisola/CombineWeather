@@ -14,21 +14,26 @@ class WeatherManager {
     let appid = "760cb0970ae941895591c62f42d4e50e"
     // MARK: - Request weather to Open Weather
     func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> AnyPublisher<ResponseBody, Error> {
-        var urlComponents = URLComponents(string: baseURL)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "lat", value: "\(latitude)"),
-            URLQueryItem(name: "lon", value: "\(longitude)"),
-            URLQueryItem(name: "appid", value: appid)
-        ]
+        Deferred {
+            Future { promise in
+                var urlComponents = URLComponents(string: self.baseURL)!
+                urlComponents.queryItems = [
+                    URLQueryItem(name: "lat", value: "\(latitude)"),
+                    URLQueryItem(name: "lon", value: "\(longitude)"),
+                    URLQueryItem(name: "appid", value: self.appid)
+                ]
 
-        let url = urlComponents.url!
+                let url = urlComponents.url!
 
-        let urlRequest = URLRequest(url: url)
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            fatalError("Error fetching weather data")
+                let urlRequest = URLRequest(url: url)
+                let (data, response) = URLSession.shared.data(for: urlRequest)
+                guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                    promise(.failure(response as! Error))
+                }
+                let decodedData = JSONDecoder().decode(ResponseBody.self, from: data)
+                promise(.success(decodedData))
+            }
         }
-        let decodedData = try JSONDecoder().decode(ResponseBody.self, from: data)
-        return decodedData
+        .eraseToAnyPublisher()
     }
 }
