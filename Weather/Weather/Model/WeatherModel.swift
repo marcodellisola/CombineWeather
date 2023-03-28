@@ -10,7 +10,7 @@ import Foundation
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Decodable {
+struct OpenWeatherForecasts: Decodable {
     let city: City
     let cod: String
     let message: Double
