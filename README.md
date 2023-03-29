@@ -1,4 +1,4 @@
-# CombineWeather
+# +Weather
 
 ## Learning Focus
 The main goal of this project is to test and learn technologies related to Concurrency and Combine Framework in Swift.
