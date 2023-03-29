@@ -13,7 +13,7 @@ import WeatherKit
 final class WeatherForecastService {
 
     func getWeatherApiForecast(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> AnyPublisher<HourlyForecasts, WeatherError> {
-        let baseURL = "https://pro.openweathermap.org/data/2.5/forecast/hourly"
+        let baseURL = "http://api.openweathermap.org/data/2.5/forecast"
         let appid = "760cb0970ae941895591c62f42d4e50e"
         var urlComponents = URLComponents(string: baseURL)!
         urlComponents.queryItems = [
