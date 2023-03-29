@@ -7,17 +7,47 @@
 
 import SwiftUI
 import WeatherKit
+import CoreLocation
 
 struct WeatherView: View {
-    @StateObject var weatherViewModel = WeatherViewModel(location: LocationManager(), service: WeatherForecastService())
+    @ObservedObject var weatherViewModel = WeatherViewModel(location: LocationManager(), service: WeatherForecastService())
+    let weatherService = WeatherService.shared
     
     var body: some View {
-        VStack {
-            Text("San Francisco")
-                .font(.largeTitle)
-            Text("\(weatherViewModel.weatherKit?.currentWeather.temperature.formatted())")
+        VStack{
+            HStack {
+                if let weather = weatherViewModel.weatherKit {
+                    VStack {
+                        VStack {
+                            Text("San Francisco")
+                                .font(.largeTitle)
+                            Text("\(weather.currentWeather.temperature.converted(to: .celsius).formatted())")
+                        }
+                        HourlyForecastView(hourWeatherList: weather.hourlyForecast.forecast)
+                    }
+                }
+                if let openWeather = weatherViewModel.openWeather {
+                    VStack{
+                        Text("Hourly Forecasts")
+                            .font(.caption)
+                            .opacity(0.5)
+                        ScrollView(.vertical) {
+                            VStack(spacing: 20) {
+                                ForEach(openWeather.list, id: \.dt) { hourWeatherItem in
+                                    HStack {
+                                        Text("\(hourWeatherItem.dtTxt)")
+                                        Image(systemName: "\(hourWeatherItem.weather[0].icon)")
+                                            .foregroundColor(.yellow)
+                                        Text("\(hourWeatherItem.main.temp)")
+                                            .fontWeight(.medium)
+                                    }.padding()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        HourlyForecastView(hourWeatherList: weatherViewModel.weatherKit?.hourlyForecast.forecast)
     }
 }
 
@@ -36,7 +66,7 @@ struct HourlyForecastView: View {
                             Text(hourWeatherItem.date.formatted(date: .omitted, time: .shortened))
                             Image(systemName: "\(hourWeatherItem.symbolName).fill")
                                 .foregroundColor(.yellow)
-                            Text(hourWeatherItem.temperature.formatted())
+                            Text(hourWeatherItem.temperature.converted(to: .celsius).formatted())
                                 .fontWeight(.medium)
                         }.padding()
                     }

@@ -14,7 +14,7 @@ final class WeatherViewModel: ObservableObject {
     let locationManager: LocationManager
     private var subscriptions = Set<AnyCancellable>()
     @Published var weatherKit: WeatherKit.Weather?
-    @Published var openWeather: OpenWeatherForecasts?
+    @Published var openWeather: HourlyForecasts?
 
     init(location: LocationManager, service: WeatherForecastService) {
         self.weatherService = service
@@ -28,21 +28,21 @@ final class WeatherViewModel: ObservableObject {
             self.weatherKit =  try await weatherService.getWeatherKitForecast(locationManager: locationManager)
         }
     }
-
+    
     func fetchWeatherApi() {
         weatherService.getWeatherApiForecast(latitude: locationManager.currentLocation?.coordinate.latitude ?? 40.853294, longitude: locationManager.currentLocation?.coordinate.longitude ?? 14.305573)
-                .sink { [weak self] res in
+            .sink { [weak self] res in
 
-                    switch res {
-                    case .failure(_):
-                        print("Error WeatherApi")
-                    default: break
-                    }
-
-                } receiveValue: { [weak self] forecast in
-                    self?.openWeather = forecast
+                switch res {
+                case .failure(_):
+                    print("Error WeatherApi")
+                default: break
                 }
-                .store(in: &subscriptions)
+
+            } receiveValue: { [weak self] forecast in
+                self?.openWeather = forecast
+            }
+            .store(in: &subscriptions)
     }
     
 }

@@ -12,8 +12,8 @@ import WeatherKit
 
 final class WeatherForecastService {
 
-    func getWeatherApiForecast(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> AnyPublisher<OpenWeatherForecasts, WeatherError> {
-        let baseURL = "api.openweathermap.org/data/2.5/forecast/daily"
+    func getWeatherApiForecast(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> AnyPublisher<HourlyForecasts, WeatherError> {
+        let baseURL = "https://pro.openweathermap.org/data/2.5/forecast/hourly"
         let appid = "760cb0970ae941895591c62f42d4e50e"
         var urlComponents = URLComponents(string: baseURL)!
         urlComponents.queryItems = [
@@ -28,7 +28,7 @@ final class WeatherForecastService {
             .receive(on: DispatchQueue.main)
             .map(\.data)
         //Use tryMap to manage decoding error
-            .decode(type: OpenWeatherForecasts.self, decoder: JSONDecoder())
+            .decode(type: HourlyForecasts.self, decoder: JSONDecoder())
             .mapError { _ in
                 return .noDataAvailable
             }
@@ -37,7 +37,8 @@ final class WeatherForecastService {
 
     func getWeatherKitForecast(locationManager: LocationManager) async throws -> WeatherKit.Weather {
         let weatherService = WeatherService.shared
-        let weather = try await weatherService.weather(for: locationManager.currentLocation!)
+        let location = locationManager.currentLocation ?? CLLocation(latitude: 40.8517746, longitude: 14.2681244)
+        let weather = try await weatherService.weather(for: location)
         return weather
     }
 }
